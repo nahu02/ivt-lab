@@ -2,6 +2,7 @@ package hu.bme.mit.spaceship;
 
 /**
 * A simple spaceship with two proton torpedo stores and four lasers (lasers non-fuctional)
+* The spaceship is also very cool.
 */
 public class GT4500 implements SpaceShip {
 
@@ -78,20 +79,13 @@ public class GT4500 implements SpaceShip {
 
       case ALL:
         // try to fire both of the torpedo stores
-        if (! primaryTorpedoStore.isEmpty()) {
-          firingSuccess = primaryTorpedoStore.fire(1);
-          wasPrimaryFiredLast = true;
-        }
-        else {
-          // although secondary was fired last time, but primary is empty
-          // thus try to fire secondary again
-          if (! secondaryTorpedoStore.isEmpty()) {
-            firingSuccess = secondaryTorpedoStore.fire(1);
-            wasPrimaryFiredLast = false;
-          }
-        // if both of the stores are empty, nothing can be done, return failure
+        if (! primaryTorpedoStore.isEmpty() && ! secondaryTorpedoStore.isEmpty()) {
+          firingSuccess = primaryTorpedoStore.fire(1) || secondaryTorpedoStore.fire(1);
+	  wasPrimaryFiredLast = false;
 	}
-        // if both of the stores are empty, nothing can be done, return failure
+        else {
+	  firingSuccess = false;
+	}
         break;
     }
 
